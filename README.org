@@ -1,0 +1,30 @@
+* eshell-undistract-me
+
+This is a port of the popular [[https://github.com/jml/undistract-me][undistract-me]] for bash to eshell in emacs.
+
+eshell-undistract-me will send a notification, and optionally play a sound, when a command you have run in eshell has taken longer than a time (default 10s) *and* have switched windows. It is designed so you can be reminded when a long-running command finishes. No longer do you suffer from a long-running command finishing after switching tasks any you only finding out minutes later.
+
+** Install
+
+Add the eshell-undistract-me.el into you emacs load path. Then add the following to you config.
+#+begin_src emacs-lisp
+  ;; Hooks needed to get eshell-undistract-me working
+  (add-hook 'eshell-pre-command-hook #'eshell-undistract-me-pre-command)
+  (add-hook 'eshell-before-prompt-hook #'eshell-undistract-me-before-prompt)
+
+  ;; To change the time needed before a notification is sent (in seconds)
+  ;; (default: 10):
+  (setq eshell-undistract-me-long-running-command-timeout 10)
+
+  ;; To play a sound as well when a notification is sent (default: nil):
+  (setq eshell-undistract-me-play-sound t)
+
+  ;; To change the tool used to play a sound (defaut: paplay)
+  (setq eshell-undistract-me-sound-command "paplay")
+
+  ;; The default sound played is located at
+  ;; /usr/share/sounds/freedesktop/stereo/complete.oga
+  ;; To change the sound path:
+  (setq eshell-undistract-me-sound-path "/path/to/new/sound")
+#+end_src
+
